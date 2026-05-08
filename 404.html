@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Custom OUi 404 page for GitHub Pages with recovery actions." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate icon" href="/favicon.ico" />
+  <title>OUi | Page Not Found</title>
+  <script>
+    (function redirectLegacyDocsRoutes() {
+      var path = window.location.pathname;
+      if (path.startsWith('/docs/')) return;
+      if (path.startsWith('/playground/')) return;
+
+      var isLegacyDocsPrefix = /^\/(?:language|reference|guide|examples|internal)(?:\/|$)/.test(path);
+      var isLegacyDocsPage = /^\/(?:getting-started|language-overview|layouts|components|shortcuts|internal-access)\.html$/.test(path);
+
+      if (!isLegacyDocsPrefix && !isLegacyDocsPage) return;
+
+      var target = '/docs' + path + window.location.search + window.location.hash;
+      window.location.replace(target);
+    })();
+  </script>
+  <style>
+    :root {
+      --bg: #efefef;
+      --ink: #121717;
+      --muted: #3d4b4b;
+      --line: #d7ddd5;
+      --brand: #165843;
+      --brand-strong: #0f4232;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: 'IBM Plex Sans', 'Segoe UI', sans-serif;
+      background: var(--bg);
+    }
+
+    .shell {
+      min-height: 100vh;
+      padding: clamp(16px, 3vw, 28px);
+    }
+
+    .frame {
+      min-height: calc(100vh - clamp(32px, 6vw, 56px));
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 85% 18%, rgba(181, 214, 190, 0.3), transparent 32%),
+        radial-gradient(circle at 18% 88%, rgba(212, 224, 204, 0.38), transparent 34%),
+        #f4f4f4;
+      display: flex;
+      align-items: center;
+    }
+
+    .content {
+      width: min(1240px, 100%);
+      margin: 0 auto;
+      padding: clamp(22px, 4vw, 56px);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 460px);
+      gap: clamp(18px, 4vw, 44px);
+      align-items: center;
+    }
+
+    .text-pane {
+      transform: translate3d(0, 0, 0);
+      will-change: transform;
+    }
+
+    .label {
+      margin: 0;
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 8px 0 10px;
+      font-size: clamp(5.2rem, 20vw, 14rem);
+      line-height: 0.88;
+      letter-spacing: -0.05em;
+      font-weight: 500;
+    }
+
+    p {
+      margin: 0;
+      font-size: clamp(1rem, 1.8vw, 1.6rem);
+      line-height: 1.35;
+      color: var(--muted);
+      max-width: 26ch;
+    }
+
+    .subcopy {
+      margin-top: 14px;
+      max-width: 56ch;
+      font-size: 1rem;
+    }
+
+    .actions {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 11px 18px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      min-width: 150px;
+    }
+
+    .btn-primary {
+      background: var(--brand);
+      color: #f5fffb;
+    }
+
+    .btn-primary:hover {
+      background: var(--brand-strong);
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.82);
+      border-color: #c7cdc2;
+      color: var(--ink);
+    }
+
+    .visual {
+      display: flex;
+      justify-content: center;
+    }
+
+    .visual img {
+      width: min(280px, 100%);
+      height: auto;
+      opacity: 0.24;
+      filter: blur(4px);
+      transform: translate3d(0, 0, 0) scale(1);
+      transform-origin: center center;
+      will-change: transform, filter, opacity;
+    }
+
+    @media (max-width: 960px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+
+      .visual {
+        order: -1;
+      }
+
+      p,
+      .subcopy {
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 560px) {
+      h1 {
+        font-size: clamp(4rem, 34vw, 7rem);
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="shell">
+    <section class="frame" aria-labelledby="title">
+      <div class="content">
+        <div class="text-pane">
+          <p class="label">Error 404</p>
+          <h1 id="title">404</h1>
+          <p>This page isn't available</p>
+          <p class="subcopy">
+            The route you opened is not part of this build. Use one of these paths to jump back into a valid OUi view.
+          </p>
+          <nav class="actions" aria-label="Recovery actions">
+            <a class="btn btn-primary" href="/">Back to Home</a>
+            <a class="btn btn-ghost" href="/docs/">Open Docs</a>
+            <a class="btn btn-ghost" href="/playground/">Open Playground</a>
+          </nav>
+        </div>
+
+        <div class="visual" aria-hidden="true">
+          <img id="dynamic-logo" src="/omniui-logo.svg" alt="" />
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    (function enableDynamicLogoEffect() {
+      var visual = document.querySelector('.visual');
+      var logo = document.getElementById('dynamic-logo');
+      var pane = document.querySelector('.text-pane');
+      if (!visual || !logo || !pane) return;
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      var current = { x: 0, y: 0, scale: 1, blur: 4, opacity: 0.24, paneX: 0, paneY: 0 };
+      var target = { x: 0, y: 0, scale: 1, blur: 4, opacity: 0.24, paneX: 0, paneY: 0 };
+      var ticking = false;
+
+      function clamp(value, min, max) {
+        return Math.max(min, Math.min(max, value));
+      }
+
+      function animate() {
+        current.x += (target.x - current.x) * 0.08;
+        current.y += (target.y - current.y) * 0.08;
+        current.scale += (target.scale - current.scale) * 0.08;
+        current.blur += (target.blur - current.blur) * 0.08;
+        current.opacity += (target.opacity - current.opacity) * 0.08;
+        current.paneX += (target.paneX - current.paneX) * 0.08;
+        current.paneY += (target.paneY - current.paneY) * 0.08;
+
+        logo.style.transform =
+          'translate3d(' + current.x.toFixed(2) + 'px,' + current.y.toFixed(2) + 'px,0) scale(' + current.scale.toFixed(4) + ')';
+        logo.style.filter = 'blur(' + current.blur.toFixed(2) + 'px)';
+        logo.style.opacity = current.opacity.toFixed(3);
+        pane.style.transform = 'translate3d(' + current.paneX.toFixed(2) + 'px,' + current.paneY.toFixed(2) + 'px,0)';
+
+        if (
+          Math.abs(target.x - current.x) > 0.01 ||
+          Math.abs(target.y - current.y) > 0.01 ||
+          Math.abs(target.scale - current.scale) > 0.0005 ||
+          Math.abs(target.blur - current.blur) > 0.01 ||
+          Math.abs(target.opacity - current.opacity) > 0.001 ||
+          Math.abs(target.paneX - current.paneX) > 0.01 ||
+          Math.abs(target.paneY - current.paneY) > 0.01
+        ) {
+          requestAnimationFrame(animate);
+        } else {
+          ticking = false;
+        }
+      }
+
+      function schedule() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(animate);
+      }
+
+      window.addEventListener('mousemove', function (event) {
+        var rect = visual.getBoundingClientRect();
+        var centerX = rect.left + rect.width / 2;
+        var centerY = rect.top + rect.height / 2;
+
+        var nx = clamp((event.clientX - centerX) / (rect.width / 2 || 1), -1, 1);
+        var ny = clamp((event.clientY - centerY) / (rect.height / 2 || 1), -1, 1);
+        var distance = clamp(Math.sqrt(nx * nx + ny * ny), 0, 1);
+
+        target.x = nx * 9;
+        target.y = ny * 7;
+        target.scale = 1.03 - distance * 0.09;
+        target.blur = 3.5 + distance * 2.4;
+        target.opacity = 0.31 - distance * 0.09;
+        target.paneX = -nx * 4;
+        target.paneY = -ny * 3;
+        schedule();
+      });
+
+      window.addEventListener('mouseleave', function () {
+        target.x = 0;
+        target.y = 0;
+        target.scale = 1;
+        target.blur = 4;
+        target.opacity = 0.24;
+        target.paneX = 0;
+        target.paneY = 0;
+        schedule();
+      });
+    })();
+  </script>
+</body>
+
+</html>
